@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('about', function () {
-    $name = 'انتبه يا خالد';
+    $name = 'MOMEN';
     //return view('about', ['name' => $name]);
     // return view('about')->with('name', $name);
     return view('about', compact('name'));
