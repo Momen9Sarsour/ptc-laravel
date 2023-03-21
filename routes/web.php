@@ -24,3 +24,9 @@ Route::get('about', function () {
     return view('about', compact('name'));
 });
 
+Route::get('tasks', function () {
+    $name = ['MOMEN', 'task 1' , 'task 2'];
+    //return view('about', ['name' => $name]);
+    // return view('about')->with('name', $name);
+    return view('tasks', compact('tasks'));
+});
