@@ -9,8 +9,8 @@
 <body>
     <h2>Tasks : </h2>
     <ul>
-    @foreach ($tasks as $task)
-    <li>{{$task}}</li>
+    @foreach ($tasks as $key => $task)
+    <li><a href="{{'show/' . $key}}"><?php echo $task ?></a></li>
     @endforeach
 
     </ul>
