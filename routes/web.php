@@ -107,3 +107,7 @@ Route::get('servece' , function(){
     return view('layout.front.servece');
 });
 
+Route::get('project' , function(){
+    return view('layout.front.project');
+});
+
