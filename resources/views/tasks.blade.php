@@ -10,7 +10,10 @@
     <h2>Tasks : </h2>
     <ul>
     @foreach ($tasks as $key => $task)
-    <li><a href="{{'show/' . $key}}"><?php echo $task ?></a></li>
+    {{-- <li><a href="{{'show/' . $key}}"><?php //echo $task ?></a></li> --}}
+    <li>{{$task->id}}</li>
+    <li>{{$task->name}}</li>
+    <li>{{$task->created_at}}</li>
     @endforeach
 
     </ul>

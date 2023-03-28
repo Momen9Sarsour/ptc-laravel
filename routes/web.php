@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('dachpord', function () {
+    $tasks = DB::table('tasks')->get();
+
+    return view('index' , compact('tasks'));
+});
+
+Route::post('insert', function () {
+    DB::table('tasks')->insert([
+        'name' => $_POST['name'],
+        // 'phone' => '3647436',
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
+});
+
+Route::post('delete/{id}', function ($id) {
+    DB::table('tasks')->where('id' , $id)->delete();
+    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
+
+});
+
+Route::post('update/{id}', function ($id) {
+    DB::table('tasks')->where('id', $id)->update([
+                'name' => $_POST['name']
+            ]);
+    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
 });
 
 Route::get('about', function () {
@@ -46,22 +72,38 @@ Route::get('tasks', function () {
 
 Route::get('show/{id}', function ($id) {
     // $tasks = ['Task', 'Task 2', 'Task 3']; // عشان نفس الاسم تعت المصفوفة الثنائية في الفيديو الثاني تم حذفها وتوحيد المصوفة لتكون ثنائية
-    $tasks = [
-        'first-task'=>'Task',
-        'second-task'=>'Task 2',
-        'third-task'=>'Task 3'];
-    $task = $tasks[$id];
+    // $tasks = [
+    //     'first-task'=>'Task',
+    //     'second-task'=>'Task 2',
+    //     'third-task'=>'Task 3'];
+    // $task = $tasks[$id];
+    // $tasks = DB::table('tasks')->get();
+    $tasks = DB::table('tasks')->where('name' , 'like' , 'task 1%')->get();
     return view('show',compact('task'));
 });
 
 // فيديو تمرير المصفوفات الثانئية والتعامل معها في لارفيل
 
 Route::get('tasks', function () {
-    $tasks = [
-        'first-task'=>'Task',
-        'second-task'=>'Task 2',
-        'third-task'=>'Task 3'];
+    // $tasks = [
+    //     'first-task'=>'Task',
+    //     'second-task'=>'Task 2',
+    //     'third-task'=>'Task 3'];
+    $tasks = DB::table('tasks')->where('id' , '=>' , 2)->get();
     return view('tasks', compact('tasks'));
 });
 
+// rout of front
+
+Route::get('/' , function(){
+    return view('layout.front.index');
+});
+
+Route::get('about' , function(){
+    return view('layout.front.about');
+});
+
+Route::get('servece' , function(){
+    return view('layout.front.servece');
+});
 
