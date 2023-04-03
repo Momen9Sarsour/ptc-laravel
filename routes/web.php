@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -14,35 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('dachpord', function () {
-    $tasks = DB::table('tasks')->get();
+Route::get('tasks', [TaskController::class, 'index']);
 
-    return view('index' , compact('tasks'));
-});
+Route::post('insert', [TaskController::class, ('insert')]);
 
-Route::post('insert', function () {
-    DB::table('tasks')->insert([
-        'name' => $_POST['name'],
-        // 'phone' => '3647436',
-        'created_at' => now(),
-        'updated_at' => now()
-    ]);
-    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
-});
+Route::post('delete/{id}', [TaskController::class, ('delete')]);
 
-Route::post('delete/{id}', function ($id) {
-    DB::table('tasks')->where('id' , $id)->delete();
-    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
+Route::post('update/{id}', [TaskController::class , 'update']);
 
-});
+Route::post('/{id}', [TaskController::class , 'updateid']);
 
-Route::post('update/{id}', function ($id) {
-    DB::table('tasks')->where('id', $id)->update([
-                'name' => $_POST['name']
-            ]);
-    return redirect()->back();   // عشان يعمل تحديث على الصفحة عند الاضافة
-});
 
+// First Subject اول محاضرة
+/*
 Route::get('about', function () {
     $name = 'MOMEN';
     //return view('about', ['name' => $name]);
@@ -92,7 +77,7 @@ Route::get('tasks', function () {
     $tasks = DB::table('tasks')->where('id' , '=>' , 2)->get();
     return view('tasks', compact('tasks'));
 });
-
+*/
 // rout of front
 
 Route::get('/' , function(){

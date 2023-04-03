@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <!-- Display Validation Errors -->
                 <!-- New Task Form -->
-                <form action="insert" method="POST" class="form-horizontal">
+                <form action="{{url('insert')}}" method="POST" class="form-horizontal">
                     @csrf
                     <!-- Task Name -->
                     <div class="form-group">
@@ -54,21 +54,18 @@
                                     <td class="table-text"><div>{{$task->id}}</div></td>
 
                                     <!-- Task Delete Button -->
-                                    <td>
-                                        <form action="delete" method="POST">
+                                    <td style="display: flex;">
+                                        <form action="{{url('delete/'.$task->id)}}" method="POST">
                                             @csrf
-
                                             <button type="submit" class="btn btn-danger">
                                                 <i class="fa fa-btn fa-trash"></i>Delete
                                             </button>
                                         </form>
-                                    </td>
-                                    <td>
-                                        <form action="update" method="POST">
-                                            @csrf
 
+                                        <form action="{{url('update/'.$task->id)}}" method="POST">
+                                            @csrf
                                             <button type="submit" class="btn btn-success">
-                                                <i class="fa fa-btn fa-trash"></i>Upadte
+                                                <i class="fa fa-btn fa-edit"></i>Update
                                             </button>
                                         </form>
                                     </td>
